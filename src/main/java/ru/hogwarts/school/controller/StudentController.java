@@ -6,7 +6,6 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("student")
@@ -46,28 +45,17 @@ public class StudentController {
 
 
     @DeleteMapping("{idDelete}")
-    public ResponseEntity<Student> deleteStudent(@PathVariable Long idDelete) {
-        Student studentDelete = studentService.deleteStudent(idDelete);
-        if (studentDelete == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(studentDelete);
+    public ResponseEntity deleteStudent(@PathVariable Long idDelete) {
+        studentService.deleteStudent(idDelete);
+        return ResponseEntity.ok().build();
     }
+
 
     @GetMapping("age/{age}")
     public Collection<Student> getStudentByAge(@PathVariable int age) {
         return studentService.getStudentByAge(age);
     }
 
-//    Вопрос ментору на разбор. почему обертка класса ResponseEntity на классе Collection<Student> выдает NullPointerException и как эту ошибку обойти?
-//    @GetMapping("age/{age}")
-//    public ResponseEntity<Collection<Student>> getStudentByAge(@PathVariable int age) {
-//        Collection<Student> studentCollection = studentService.getStudentByAge(age);
-//        if (studentCollection == null) {
-//            return ResponseEntity.badRequest().build();
-//        }
-//        return ResponseEntity.ok(studentCollection);
-//    }
 
     @GetMapping("all")
     public Collection<Student> allStudent() {
