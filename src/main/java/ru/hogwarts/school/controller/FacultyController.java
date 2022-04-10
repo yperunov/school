@@ -3,7 +3,6 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
@@ -45,28 +44,16 @@ public class FacultyController {
     }
 
     @DeleteMapping("{idDelete}")
-    public ResponseEntity<Faculty> deleteFaculty(@PathVariable Long idDelete) {
-        Faculty facultyDelete = facultyService.deleteFaculty(idDelete);
-        if (facultyDelete == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(facultyDelete);
+    public ResponseEntity deleteFaculty(@PathVariable Long idDelete) {
+        facultyService.deleteFaculty(idDelete);
+        return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("color/{color}")
-//    public Collection<Faculty> getFacultyByColor(@PathVariable String color) {
-//        return facultyService.getFacultyByColor(color);
-//    }
-
-//     Вопрос ментору на разбор. почему обертка класса ResponseEntity на классе Collection<Faculty> не выдает NullPointerException?
     @GetMapping("color/{color}")
-    public ResponseEntity<Collection<Faculty>> getFacultyByColor(@PathVariable String color) {
-        Collection<Faculty> facultyCollection = facultyService.getFacultyByColor(color);
-        if (facultyCollection == null) {
-            ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(facultyCollection);
+    public Collection<Faculty> getFacultyByColor(@PathVariable String color) {
+        return facultyService.getFacultyByColor(color);
     }
+
 
     @GetMapping("all")
     public Collection<Faculty> allFaculty() {
