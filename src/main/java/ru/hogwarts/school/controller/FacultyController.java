@@ -54,6 +54,12 @@ public class FacultyController {
         return facultyService.getFacultyByColor(color);
     }
 
+    @GetMapping("colororname")
+    public Collection<Faculty> getFacultyByColorOrName(@RequestParam(required = false) String color,
+                                                                       @RequestParam(required = false) String name) {
+        return facultyService.findFacultyByColorAndName(color, name);
+    }
+
 
     @GetMapping("all")
     public Collection<Faculty> allFaculty() {
