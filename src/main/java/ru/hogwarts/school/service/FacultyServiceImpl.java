@@ -51,12 +51,4 @@ public class FacultyServiceImpl implements FacultyService{
         return facultyRepository.findAll();
     }
 
-    @Override
-    public Faculty findFacultyByStudentId(Long id) {
-        Student foundStudent = new Student();
-        ;
-        return null;
-    }
-
-
 }
